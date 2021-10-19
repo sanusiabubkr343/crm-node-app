@@ -7,8 +7,8 @@ const userSchema  =  new mongoose.Schema({
     email: { type: String, required: true}, 
     password: { type: String, required: true },
     phoneNumber: { type: String, required: true}, 
-    userImageUrl :  {type :String ,required : true},
-    userImageCloudId : {type :String ,required : true},
+    // userImageUrl :  {type :String ,required : true},
+    // userImageCloudId : {type :String ,required : true},
     resetPasswordToken :  {type :String },
     createdAt:   { type: Date, default: Date.now },
     

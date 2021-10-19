@@ -6,7 +6,8 @@ const upload = require("../Utils/multer");
 
 
 
-    router.post('/register',upload.single('userImage'),userController.user_register);
+    //router.post('/register',upload.single('userImage'),userController.user_register);
+    router.post('/register',userController.user_register);
     
     router.post('/login', userController.user_login)
    

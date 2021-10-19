@@ -57,90 +57,135 @@ exports.user_register = function(request,response){
                  console.log(data);
             // then register user contact to mongodb
 
+
+            const hash = bcrypt.hashSync(request.body.password, saltRounds);
+        
+            const user = new User({
+           
+                _id: new mongoose.Types.ObjectId,
+                 fullname: request.body.fullname,
+                 username: request.body.username,
+                 email : request.body.email,
+                 password: hash,
+                 phoneNumber : request.body.phoneNumber
+                // userImageUrl: cloudResponse.avatar,
+                // userImageCloudId: cloudResponse.cloudinary_id,
+          
+            });
+
+            user.save()
+            .then(function (results) {
+              response.status(200).json({
+                _id: results._id,
+                fullname: results.fullname,
+                username: results.username,
+               email : results.email,
+               password: results.password,
+               phoneNumber : results.phoneNumber,
+               createdAt :results.createdAt,
+               status: "200"
+  
+              });
+              console.log(results);
+          })
+            .catch(function (error) {
+        
+              return response.status(500).json({ error: error.message });
+              console.log({error : error.message});
+  
+            });
+          
+
              // Upload image to cloudinary
     
-        cloudinary.uploader.upload(request.file.path)
-        .then(function(x)
-        {
-          // Create new userCloud
+        // cloudinary.uploader.upload(request.file.path)
+        // .then(function(x)
+        // {
+        //   // Create new userCloud
       
-          const cloud = new cloudImageModel({
-            name: request.body.name,
-            avatar: x.secure_url,
-            cloudinary_id: x.public_id,
-          });
-          // Save userImage to cloud
-           cloud.save()
-             .then(function(cloudResponse)
-      
-           {  // if image is saved,  then go check  the rsponse and get its url
-         
-           // response.status(200).json(cloudResponse);  
-            if(cloudResponse)
-            
-              {   
+        //   const cloud = new cloudImageModel({
+        //     name: request.body.name,
+        //     avatar: x.secure_url,
+        //     cloudinary_id: x.public_id,
+        //   });
 
-                const hash = bcrypt.hashSync(request.body.password, saltRounds);
-                // console.log({body: request.body.userId})
-                const user = new User({
+         
+      
+
+
+
+        //   // Save userImage to cloud
+        //    cloud.save()
+        //      .then(function(cloudResponse)
+      
+        //    {  // if image is saved,  then go check  the rsponse and get its url
+         
+        //    // response.status(200).json(cloudResponse);  
+        //     if(cloudResponse)
+            
+        //       {   
+
+        //         const hash = bcrypt.hashSync(request.body.password, saltRounds);
+        //         // console.log({body: request.body.userId})
+        //         const user = new User({
                
-                    _id: new mongoose.Types.ObjectId,
-                     fullname: request.body.fullname,
-                     username: request.body.username,
-                     email : request.body.email,
-                     password: hash,
-                     phoneNumber : request.body.phoneNumber,
-                    userImageUrl: cloudResponse.avatar,
-                    userImageCloudId: cloudResponse.cloudinary_id,
+        //             _id: new mongoose.Types.ObjectId,
+        //              fullname: request.body.fullname,
+        //              username: request.body.username,
+        //              email : request.body.email,
+        //              password: hash,
+        //              phoneNumber : request.body.phoneNumber
+        //             // userImageUrl: cloudResponse.avatar,
+        //             // userImageCloudId: cloudResponse.cloudinary_id,
               
-                });
+        //         });
               
-                user.save()
-                  .then(function (results) {
-                    response.status(200).json({
-                      _id: results._id,
-                      fullname: results.fullname,
-                      username: results.username,
-                     email : results.email,
-                     password: results.password,
-                     phoneNumber : results.phoneNumber,
-                     userImageUrl: results.userImageUrl,
-                     userImageCloudId: results.userImageCloudId,
-                     createdAt :results.createdAt,
-                     status: "200"
+        //         user.save()
+        //           .then(function (results) {
+        //             response.status(200).json({
+        //               _id: results._id,
+        //               fullname: results.fullname,
+        //               username: results.username,
+        //              email : results.email,
+        //              password: results.password,
+        //              phoneNumber : results.phoneNumber,
+        //              userImageUrl: results.userImageUrl,
+        //              userImageCloudId: results.userImageCloudId,
+        //              createdAt :results.createdAt,
+        //              status: "200"
   
-                    });
-                    console.log(results);
-                })
-                  .catch(function (error) {
+        //             });
+        //             console.log(results);
+        //         })
+        //           .catch(function (error) {
               
-                    return response.status(500).json({ error: error.message });
-                    console.log({error : error.message});
+        //             return response.status(500).json({ error: error.message });
+        //             console.log({error : error.message});
       
-                  });
+        //           });
               
               
-              }
-              else {
-                response.status(501).json({error : error.message});
-                console.log({error : error.message});
+        //       }
+        //       else {
+        //         response.status(501).json({error : error.message});
+        //         console.log({error : error.message});
       
-              }
+        //       }
       
-            })
-            .catch(function (error) {
+        //     })
+        //     .catch(function (error) {
               
-              return response.status(502).json({ error: error.message });
-              console.log({error : error.message});
+        //       return response.status(502).json({ error: error.message });
+        //       console.log({error : error.message});
       
-            });
-        })
-        .catch((error) => {
-          response.status(503).send({
-            message: "failed",
-            error,
-          }); 
-        });   
+        //     });
+        // })
+        // .catch((error) => {
+        //   response.status(503).send({
+        //     message: "failed",
+        //     error,
+        //   }); 
+        // });   
             
 
              }
