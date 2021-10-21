@@ -4,7 +4,7 @@ const  logger = require("morgan");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const  userRoutes = require ('./Routes/User');
-
+const  contactRoutes = require ('./Routes/Contact');
 
 
 const dotenv = require("dotenv");
@@ -33,6 +33,8 @@ dotenv.config();
 })
 
 app.use('/user',userRoutes);
+app.use('/contact',contactRoutes);
+
 
 app.use('*',function(request,response)
 {
