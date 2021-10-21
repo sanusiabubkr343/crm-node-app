@@ -9,7 +9,7 @@ const contactController = require("../Controllers/Contact");
     //router.post('/register',upload.single('userImage'),userController.user_register);
     router.post('/post_contact',contactController.contact_post);
     
-    router.get('/get_contact',  contactController.contact_get)
+    router.get('/get_contact/:userId',  contactController.contact_get)
    
      router.patch('/update_contact', contactController.contact_update);
      

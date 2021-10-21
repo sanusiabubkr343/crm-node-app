@@ -109,7 +109,7 @@ exports.contact_post = function (request, response) {
 }
 exports.contact_get = function (request, response) {
   // response.status(200).json({message:"GET WORK"})
-
+     
   Contact.find({ user: request.params.userId })
     .exec()
     .then(function (results) {
