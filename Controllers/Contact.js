@@ -109,8 +109,8 @@ exports.contact_post = function (request, response) {
 }
 exports.contact_get = function (request, response) {
   // response.status(200).json({message:"GET WORK"})
-     
-  Contact.find({ user: request.params.userId })
+     const id = request.params.userId;
+  Contact.find({user:id})
     .exec()
     .then(function (results) {
       response.status(200).json({ message: "OK", result: results });
