@@ -236,6 +236,7 @@ exports.user_login = function(request,response){
 
                       const responseObject = {messgage: "AUTH SUCCESFUL",
                        token : token,
+                       userId:data._id,
                        cheker : "OK",
                       status : "200"
                   }
